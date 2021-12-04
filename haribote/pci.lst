@@ -1,0 +1,92 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_io_out32
+     7 00000000                                 	EXTERN	_io_in32
+     8 00000000                                 [FILE "pci.c"]
+     9                                          [SECTION .text]
+    10 00000000                                 	GLOBAL	_get_pci_conf_reg
+    11 00000000                                 _get_pci_conf_reg:
+    12 00000000 55                              	PUSH	EBP
+    13 00000001 89 E5                           	MOV	EBP,ESP
+    14 00000003 0F B6 4D 0C                     	MOVZX	ECX,BYTE [12+EBP]
+    15 00000007 0F B6 45 08                     	MOVZX	EAX,BYTE [8+EBP]
+    16 0000000B 0F B6 55 10                     	MOVZX	EDX,BYTE [16+EBP]
+    17 0000000F C1 E0 10                        	SAL	EAX,16
+    18 00000012 83 E1 1F                        	AND	ECX,31
+    19 00000015 C1 E1 0B                        	SAL	ECX,11
+    20 00000018 83 E2 07                        	AND	EDX,7
+    21 0000001B C1 E2 08                        	SAL	EDX,8
+    22 0000001E 09 C8                           	OR	EAX,ECX
+    23 00000020 09 D0                           	OR	EAX,EDX
+    24 00000022 8A 45 14                        	MOV	AL,BYTE [20+EBP]
+    25 00000025 0D 80000000                     	OR	EAX,-2147483648
+    26 0000002A 50                              	PUSH	EAX
+    27 0000002B 68 00000CF8                     	PUSH	3320
+    28 00000030 E8 [00000000]                   	CALL	_io_out32
+    29 00000035 58                              	POP	EAX
+    30 00000036 5A                              	POP	EDX
+    31 00000037 C7 45 08 00000CFC               	MOV	DWORD [8+EBP],3324
+    32 0000003E C9                              	LEAVE
+    33 0000003F E9 [00000000]                   	JMP	_io_in32
+    34 00000044                                 	GLOBAL	_set_pci_conf_reg
+    35 00000044                                 _set_pci_conf_reg:
+    36 00000044 55                              	PUSH	EBP
+    37 00000045 89 E5                           	MOV	EBP,ESP
+    38 00000047 53                              	PUSH	EBX
+    39 00000048 0F B6 4D 0C                     	MOVZX	ECX,BYTE [12+EBP]
+    40 0000004C 0F B6 45 08                     	MOVZX	EAX,BYTE [8+EBP]
+    41 00000050 0F B6 55 10                     	MOVZX	EDX,BYTE [16+EBP]
+    42 00000054 C1 E0 10                        	SAL	EAX,16
+    43 00000057 83 E1 1F                        	AND	ECX,31
+    44 0000005A C1 E1 0B                        	SAL	ECX,11
+    45 0000005D 83 E2 07                        	AND	EDX,7
+    46 00000060 C1 E2 08                        	SAL	EDX,8
+    47 00000063 09 C8                           	OR	EAX,ECX
+    48 00000065 09 D0                           	OR	EAX,EDX
+    49 00000067 8B 5D 18                        	MOV	EBX,DWORD [24+EBP]
+    50 0000006A 8A 45 14                        	MOV	AL,BYTE [20+EBP]
+    51 0000006D 0D 80000000                     	OR	EAX,-2147483648
+    52 00000072 50                              	PUSH	EAX
+    53 00000073 68 00000CF8                     	PUSH	3320
+    54 00000078 E8 [00000000]                   	CALL	_io_out32
+    55 0000007D 59                              	POP	ECX
+    56 0000007E 58                              	POP	EAX
+    57 0000007F 89 5D 0C                        	MOV	DWORD [12+EBP],EBX
+    58 00000082 C7 45 08 00000CFC               	MOV	DWORD [8+EBP],3324
+    59 00000089 8B 5D FC                        	MOV	EBX,DWORD [-4+EBP]
+    60 0000008C C9                              	LEAVE
+    61 0000008D E9 [00000000]                   	JMP	_io_out32
+    62 00000092                                 	GLOBAL	_find_pci
+    63 00000092                                 _find_pci:
+    64 00000092 55                              	PUSH	EBP
+    65 00000093 89 E5                           	MOV	EBP,ESP
+    66 00000095 56                              	PUSH	ESI
+    67 00000096 53                              	PUSH	EBX
+    68 00000097 31 F6                           	XOR	ESI,ESI
+    69 00000099                                 L17:
+    70 00000099 31 DB                           	XOR	EBX,EBX
+    71 0000009B                                 L16:
+    72 0000009B 6A 00                           	PUSH	0
+    73 0000009D 89 F2                           	MOV	EDX,ESI
+    74 0000009F 6A 00                           	PUSH	0
+    75 000000A1 0F B6 C2                        	MOVZX	EAX,DL
+    76 000000A4 50                              	PUSH	EAX
+    77 000000A5 0F B6 C3                        	MOVZX	EAX,BL
+    78 000000A8 50                              	PUSH	EAX
+    79 000000A9 43                              	INC	EBX
+    80 000000AA E8 FFFFFF51                     	CALL	_get_pci_conf_reg
+    81 000000AF 83 C4 10                        	ADD	ESP,16
+    82 000000B2 83 FB 1F                        	CMP	EBX,31
+    83 000000B5 7E E4                           	JLE	L16
+    84 000000B7 46                              	INC	ESI
+    85 000000B8 83 FE 1F                        	CMP	ESI,31
+    86 000000BB 7E DC                           	JLE	L17
+    87 000000BD 8D 65 F8                        	LEA	ESP,DWORD [-8+EBP]
+    88 000000C0 83 C8 FF                        	OR	EAX,-1
+    89 000000C3 5B                              	POP	EBX
+    90 000000C4 5E                              	POP	ESI
+    91 000000C5 5D                              	POP	EBP
+    92 000000C6 C3                              	RET
