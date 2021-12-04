@@ -1,0 +1,21 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [BITS 32]
+     4 00000000                                 [FILE "api028.nas"]
+     5 00000000                                 
+     6 00000000                                 		GLOBAL	_api_read_serial
+     7 00000000                                 		GLOBAL	_api_write_serial
+     8 00000000                                 
+     9                                          [SECTION .text]
+    10 00000000                                 
+    11 00000000                                 _api_read_serial:		; char api_read_serial(void);
+    12 00000000 BA 0000001C                     		MOV		EDX,28
+    13 00000005 CD 40                           		INT		0x40
+    14 00000007 C3                              		RET
+    15 00000008                                 
+    16 00000008                                 _api_write_serial:		; void api_write_serial(char);
+    17 00000008 BA 0000001D                     		MOV		EDX,29
+    18 0000000D 8B 5C 24 08                     		MOV		EBX,[ESP+8]
+    19 00000011 CD 40                           		INT		0x40
+    20 00000013 C3                              		RET
+    21 00000014                                 

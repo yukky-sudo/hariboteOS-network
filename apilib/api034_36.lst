@@ -1,0 +1,20 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [BITS 32]
+     4 00000000                                 [FILE "api028.nas"]
+     5 00000000                                 
+     6 00000000                                 		GLOBAL		_api_get_mx
+     7 00000000                                 		GLOBAL		_api_get_my
+     8 00000000                                 		GLOBAL		_api_get_mouse_data
+     9 00000000                                 
+    10                                          [SECTION .text]
+    11 00000000                                 
+    12 00000000                                 _api_get_mx:		; int api_get_mx(void);
+    13 00000000 BA 00000022                     		MOV		EDX,34
+    14 00000005 CD 40                           		INT		0x40
+    15 00000007 C3                              		RET
+    16 00000008                                 
+    17 00000008                                 _api_get_my:		; int api_get_my(void);
+    18 00000008 BA 00000023                     		MOV		EDX,35
+    19 0000000D CD 40                           		INT		0x40
+    20 0000000F C3                              		RET
