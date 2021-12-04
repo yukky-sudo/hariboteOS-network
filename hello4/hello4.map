@@ -1,0 +1,37 @@
+text size :   1357(0x0054D)
+data size :     70(0x00046)
+bss  size :      0(0x00000)
+
+0x00000024 : (.text)
+0x00000024 : _HariMain
+0x00000066 : _api_putstr0
+0x00000066 : (.text)
+0x00000074 : _api_end
+0x00000074 : (.text)
+0x0000007B : _api_get_mx
+0x0000007B : (.text)
+0x00000083 : _api_get_my
+0x0000008B : (.text)
+0x0000008B : _HariStartup
+0x00000094 : _sprintf
+0x00000094 : (.text)
+0x000000A8 : (.text)
+0x000000E4 : _strtoul0
+0x000001B7 : (.text)
+0x000001DF : _vsprintf
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000000 : (.data)
+0x00000400 : (.data)
+0x00000426 : (.data)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)
+0x00000000 : (.bss)

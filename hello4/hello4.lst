@@ -1,0 +1,47 @@
+     1 00000000                                 [FORMAT "WCOFF"]
+     2 00000000                                 [INSTRSET "i486p"]
+     3 00000000                                 [OPTIMIZE 1]
+     4 00000000                                 [OPTION 1]
+     5 00000000                                 [BITS 32]
+     6 00000000                                 	EXTERN	_api_get_my
+     7 00000000                                 	EXTERN	_api_get_mx
+     8 00000000                                 	EXTERN	_api_putstr0
+     9 00000000                                 	EXTERN	_sprintf
+    10 00000000                                 	EXTERN	_api_end
+    11 00000000                                 [FILE "hello4.c"]
+    12                                          [SECTION .data]
+    13 00000000                                 LC0:
+    14 00000000 68 65 6C 6C 6F 2C 20 77 6F 72   	DB	"hello, world",0x0A,0x00
+       0000000A 6C 64 0A 00 
+    15 0000000E                                 LC1:
+    16 0000000E 6D 6F 75 73 65 20 70 6F 73 20   	DB	"mouse pos = x:%d y:%d ",0x0A,0x00
+       00000018 3D 20 78 3A 25 64 20 79 3A 25 
+       00000022 64 20 0A 00 
+    17                                          [SECTION .text]
+    18 00000000                                 	GLOBAL	_HariMain
+    19 00000000                                 _HariMain:
+    20 00000000 55                              	PUSH	EBP
+    21 00000001 89 E5                           	MOV	EBP,ESP
+    22 00000003 56                              	PUSH	ESI
+    23 00000004 53                              	PUSH	EBX
+    24 00000005 83 EC 20                        	SUB	ESP,32
+    25 00000008 E8 [00000000]                   	CALL	_api_get_my
+    26 0000000D 89 C6                           	MOV	ESI,EAX
+    27 0000000F E8 [00000000]                   	CALL	_api_get_mx
+    28 00000014 68 [00000000]                   	PUSH	LC0
+    29 00000019 89 C3                           	MOV	EBX,EAX
+    30 0000001B E8 [00000000]                   	CALL	_api_putstr0
+    31 00000020 56                              	PUSH	ESI
+    32 00000021 53                              	PUSH	EBX
+    33 00000022 8D 5D D8                        	LEA	EBX,DWORD [-40+EBP]
+    34 00000025 68 [0000000E]                   	PUSH	LC1
+    35 0000002A 53                              	PUSH	EBX
+    36 0000002B E8 [00000000]                   	CALL	_sprintf
+    37 00000030 53                              	PUSH	EBX
+    38 00000031 E8 [00000000]                   	CALL	_api_putstr0
+    39 00000036 E8 [00000000]                   	CALL	_api_end
+    40 0000003B 8D 65 F8                        	LEA	ESP,DWORD [-8+EBP]
+    41 0000003E 5B                              	POP	EBX
+    42 0000003F 5E                              	POP	ESI
+    43 00000040 5D                              	POP	EBP
+    44 00000041 C3                              	RET

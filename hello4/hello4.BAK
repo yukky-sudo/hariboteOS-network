@@ -1,0 +1,11 @@
+#include "apilib.h"
+#include <stdio.h>
+
+void HariMain(void)
+{
+	int mx,my;
+	my = api_get_my();
+	mx = api_get_mx();
+	api_putstr0("hello, world\n");
+	api_end();
+}
